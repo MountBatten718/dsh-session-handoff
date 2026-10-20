@@ -5,34 +5,38 @@
 
 English | [中文](README.zh-CN.md)
 
-**Hand your long DSH session over to a clean one.** `/handoff` summarizes the recent conversation with an
-LLM, creates a **brand-new session + agent** in the same workspace (no history copied), injects a structured
-handoff document as its first message, and **auto-opens** it. The origin session is untouched.
+**Context window filling up? One `/handoff` condenses dozens of turns into a one-page handoff document and continues in a clean new session — the old session stays untouched.**
 
-The plugin can also do this **automatically** when the context window or session size gets heavy — after
-asking you first, by default.
+Long DSH sessions get slow, eat the context window, and start forgetting. DSH ships compaction and fork, but
+nothing that says *remember what matters, then start fresh*. This plugin is that missing step.
 
-## Why
+When the context window or session size crosses your threshold it **asks first**. On confirm, it writes a
+handoff document — **goal / approach / done / files / next steps / open questions** — creates a new session in
+the same workspace, injects the document as its first message, and opens it. The new session already knows the
+job; you don't re-explain anything.
 
-Long DSH sessions get slow to load, fill up the context window, and the model starts forgetting things.
-DSH ships `/compact` and fork (copy the whole history), but there is no one-click
-"summarize this session → start a clean one → keep going". This plugin is that step:
+## How it differs from compaction and fork
 
-1. Summarize the last N user turns into a structured handoff document
-   (goal / approach / done / files / next steps / open questions);
-2. Create a fresh session + agent in the same workspace, inheriting cwd, model route and agent preset;
-3. Inject the handoff document as the new session's first message and **auto-open** it;
-4. Leave the origin session intact, with a marker on its title linking to the new one.
+| | `/compact` | fork | this plugin |
+|---|---|---|---|
+| Origin session | compacted in place | kept | **kept as-is**, linked back from its title |
+| Load on the new session | same session | **full history copied** | **one page of handoff notes** |
+| Who continues | yourself | yourself | **a fresh session with a clean context** |
+| When it switches | automatically at the threshold | manually | **asks first at the threshold**, or fully automatic |
+
+Compaction repacks the old baggage, fork copies it. This plugin writes the baggage down as a one-page brief
+and travels light.
 
 ## Features
 
-- **Manual** — `/handoff [<N>|all]` (no argument uses the configured `turns`, default 50 user messages)
+- **Manual** — `/handoff [<N>|all]`; no argument uses the configured `turns` (default 50 user messages)
 - **Automatic** — three policies: *replace* (before native compaction) / *hybrid* (when the session gets heavy) /
   *native* (never switch automatically)
 - **Asks first** — confirm popup by default; `notify` / `auto` modes available. After you dismiss a suggestion,
   the trigger level must grow by another 50% before asking again
 - **Health row** — a persistent "context xx% | session xxMB | ~N turns left" line above the composer
-- **Clean handoff** — new session inherits workspace, model route and agent preset (system prompt / tools / skills)
+- **Clean handoff** — new session inherits workspace, model route and agent preset (system prompt / tools / skills),
+  with none of the old context
 - **Structured document** — persisted to disk as well; browse past handoffs from the settings panel
 - **Auto-open** — the client half waits for the child session and navigates to it (once per child, no re-jumps on replay)
 - **Decision log** — every decision (action + reason) is recorded and viewable in settings
@@ -46,7 +50,7 @@ The plugin is a standard DSH bundle: put it into the `node_modules` of **the pro
 register it there. Example for the desktop profile:
 
 ```sh
-# 1) put the repository anywhere
+# 1) put the repository anywhere (or unpack dsh-session-handoff-0.3.0.tgz from the release)
 git clone https://github.com/MountBatten718/dsh-session-handoff.git ~/dsh-session-handoff
 
 # 2) link it into the desktop profile's node_modules
