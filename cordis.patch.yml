@@ -1,0 +1,5 @@
+# dsh bundle patch: 在 profile 的空条目列表上插入一行插件。
+# name 必须是包名（模块说明符），运行时经 profile fallback 解析。
+- insert:
+    - id: handoff
+      name: dsh-session-handoff

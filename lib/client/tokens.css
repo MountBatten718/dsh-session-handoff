@@ -1,0 +1,273 @@
+/* ============================================================================
+   DSH 会话硬切插件 · 共享设计令牌 v2（2026-09-27）
+   —— 汇总原型图唯一允许引用的令牌文件。原型内禁止出现任何硬编码色值/字号/间距。
+   —— 令牌 VALUES 沿用用户 DSH 家族的《UI改版方案_2026-09-27.md》§4 设计令牌 v2 规格，
+      保证本插件界面与同族产品视觉一致（设计令牌共享原则）。
+   —— 注：文件尾部的 --node-* 画布/节点令牌由家族文件继承而来，本插件界面不使用；
+      保留是为了与家族令牌文件保持逐字一致，将来家族升级时可整体替换。
+   ============================================================================ */
+
+:root {
+  /* ---------- 品牌色（唯一强调色） ---------- */
+  --brand-50:  #f1efff;
+  --brand-100: #e4e0ff;
+  --brand-200: #cfc8fd;
+  --brand-500: #604ef7;
+  --brand-600: #4f3fd6;
+  --brand-700: #3f31ab;
+
+  /* ---------- 语义色 ---------- */
+  --success: #189a30;  --success-bg: #e8f6ea;
+  --error:   #de3b3d;  --error-bg:   #fdecec;
+  --warning: #e88000;  --warning-bg: #fdf3e5;
+  --info:    #005de0;  --info-bg:    #e8f1fd;   /* 蓝色降级：只做提示语义，不再当第二强调色 */
+
+  /* ---------- 中性灰阶（13 级，亮色） ---------- */
+  --gray-0:   #ffffff;
+  --gray-25:  #fcfcfd;
+  --gray-50:  #f8f9fa;
+  --gray-100: #f2f3f5;
+  --gray-200: #e8eaed;
+  --gray-300: #dcdfe3;
+  --gray-400: #c3c8cf;
+  --gray-500: #9aa1ab;
+  --gray-600: #6f7780;
+  --gray-700: #4b5259;
+  --gray-800: #2b3036;
+  --gray-900: #16191d;
+  --gray-950: #0a0c0e;
+
+  /* ---------- 语义别名（组件只准用这一层） ---------- */
+  --bg-app:      var(--gray-50);
+  --bg-canvas:   #fcfcfd;
+  --bg-surface:  var(--gray-0);
+  --bg-raised:   var(--gray-0);
+  --bg-sunken:   var(--gray-100);
+  --bg-hover:    var(--gray-100);
+  --bg-active:   var(--gray-200);
+  --bg-inverse:  var(--gray-900);
+
+  --fg-primary:   var(--gray-900);
+  --fg-secondary: var(--gray-700);
+  --fg-tertiary:  var(--gray-600);
+  --fg-muted:     var(--gray-500);
+  --fg-inverse:   var(--gray-0);
+  --fg-brand:     var(--brand-600);
+
+  --border-strong:  var(--gray-300);
+  --border-default: var(--gray-200);
+  --border-subtle:  var(--gray-100);
+  --border-focus:   var(--brand-500);
+
+  --canvas-bg:  #fcfcfd;
+  --canvas-dot: #e3e5e9;
+  --edge-color: var(--gray-400);
+
+  /* ---------- 字号阶梯（7 级） ---------- */
+  --text-xs:      11px;  --leading-xs:      1.45;
+  --text-sm:      12px;  --leading-sm:      1.50;
+  --text-base:    13px;  --leading-base:    1.55;
+  --text-md:      14px;  --leading-md:      1.50;
+  --text-lg:      16px;  --leading-lg:      1.40;
+  --text-xl:      20px;  --leading-xl:      1.30;
+  --text-display: 28px;  --leading-display: 1.20;
+
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+
+  /* ---------- 间距（4px 基数） ---------- */
+  --space-1:  4px;   --space-2:  8px;   --space-3:  12px;
+  --space-4:  16px;  --space-5:  20px;  --space-6:  24px;
+  --space-8:  32px;  --space-10: 40px;  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---------- 圆角（4 级） ---------- */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-full: 999px;
+
+  /* ---------- 阴影（5 级） ---------- */
+  --shadow-xs: 0 1px 2px rgba(16, 18, 22, .06);
+  --shadow-sm: 0 1px 3px rgba(16, 18, 22, .08), 0 1px 2px rgba(16, 18, 22, .04);
+  --shadow-md: 0 4px 12px rgba(16, 18, 22, .10);
+  --shadow-lg: 0 12px 32px rgba(16, 18, 22, .14);
+  --shadow-xl: 0 24px 48px -12px rgba(16, 18, 22, .20);
+
+  /* ---------- 层级（语义 z-index） ---------- */
+  --z-canvas:   0;
+  --z-node:     10;
+  --z-sticky:   100;
+  --z-dropdown: 200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+
+  /* ---------- 动效 ---------- */
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 260ms;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+
+  /* ---------- 遮罩 ---------- */
+  --overlay-bg:  rgba(10, 12, 14, .45);
+  --overlay-blur: 2px;
+
+  /* ---------- 画布/节点专用（由 v1 --node-* 收敛，补齐旧版缺失的 16 个令牌） ---------- */
+  --node-bg:            var(--bg-surface);
+  --node-border:        var(--border-default);
+  --node-border-active: var(--brand-500);
+  --node-header-bg:     var(--gray-50);
+  --node-shadow:        var(--shadow-sm);
+  --node-shadow-active: var(--shadow-md);
+  --node-scrollbar:        var(--gray-300);
+  --node-scrollbar-hover:  var(--gray-400);
+  --node-prompt-border:    #e0b23e;   /* 木兰同款“提示词”黄框，保留 */
+  --node-prompt-bg:        #fffaf0;
+  --node-error-soft:       #f0c2c2;
+  --node-success-ring:     rgba(24, 154, 48, .35);
+  --node-error-ring:       rgba(222, 59, 61, .32);
+  --node-handle:           var(--brand-500);
+  --node-handle-data:      var(--info);
+  --node-run-btn:          var(--gray-900);
+  --node-run-btn-hover:    var(--gray-800);
+}
+
+/* ============================ 暗色：同名变量换值 ============================
+   组件不写任何 dark: 分支即可自动适配——本次改版的核心工程收益。 */
+.dark {
+  --brand-50:  #1b1830;
+  --brand-100: #262047;
+  --brand-200: #3a2f78;
+  --brand-500: #736dff;
+  --brand-600: #8b86ff;
+  --brand-700: #a5a1ff;
+
+  --success: #4db155;  --success-bg: #0e2411;
+  --error:   #f36069;  --error-bg:   #2c1214;
+  --warning: #f6922e;  --warning-bg: #2b1d0d;
+  --info:    #4c99f8;  --info-bg:    #0d1f33;
+
+  --gray-0:   #0a0c0e;
+  --gray-25:  #0f1114;
+  --gray-50:  #131518;
+  --gray-100: #1a1d21;
+  --gray-200: #24272c;
+  --gray-300: #32363c;
+  --gray-400: #454a51;
+  --gray-500: #6b7178;
+  --gray-600: #8d939b;
+  --gray-700: #b3b8bf;
+  --gray-800: #d5d9de;
+  --gray-900: #eceef1;
+  --gray-950: #ffffff;
+
+  --bg-app:     #0a0c0e;
+  --bg-canvas:  #0f1114;
+  --bg-surface: #131518;
+  --bg-raised:  #1a1d21;
+  --bg-sunken:  #0f1114;
+  --bg-hover:   #1f2227;
+  --bg-active:  #282c32;
+  --bg-inverse: #eceef1;
+
+  --fg-primary:   #eceef1;
+  --fg-secondary: #b3b8bf;
+  --fg-tertiary:  #8d939b;
+  --fg-muted:     #6b7178;
+  --fg-inverse:   #0a0c0e;
+  --fg-brand:     var(--brand-600);
+
+  --border-strong:  #32363c;
+  --border-default: #24272c;
+  --border-subtle:  #1a1d21;
+  --border-focus:   var(--brand-500);
+
+  --canvas-bg:  #0f1114;
+  --canvas-dot: #23262b;
+  --edge-color: #454a51;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .40);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .30);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, .50);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, .55);
+  --shadow-xl: 0 24px 48px -12px rgba(0, 0, 0, .65);
+
+  --overlay-bg: rgba(0, 0, 0, .60);
+
+  --node-prompt-border: #8a6d24;
+  --node-prompt-bg:     #1d1a12;
+  --node-error-soft:    #6d3a3a;
+  --node-success-ring:  rgba(77, 177, 85, .38);
+  --node-error-ring:    rgba(243, 96, 105, .34);
+}
+
+/* ======================= 兼容层（迁移期用，勿在新代码引用） =======================
+   v1 的 --mulan-* / --background 等旧名在此映射到 v2，保证迁移期间旧 className 不炸。 */
+:root {
+  --background: var(--bg-app);         --foreground: var(--fg-primary);
+  --card: var(--bg-surface);           --card-foreground: var(--fg-primary);
+  --popover: var(--bg-raised);         --popover-foreground: var(--fg-primary);
+  --primary: var(--gray-900);          --primary-foreground: var(--gray-0);
+  --secondary: var(--gray-100);        --secondary-foreground: var(--gray-900);
+  --muted: var(--gray-100);            --muted-foreground: var(--fg-muted);
+  --accent: var(--gray-100);           --accent-foreground: var(--gray-900);
+  --destructive: var(--error);
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--border-focus);         --radius: var(--radius-md);
+
+  --mulan-text-primary:   var(--fg-primary);
+  --mulan-text-secondary: var(--fg-secondary);
+  --mulan-text-tertiary:  var(--fg-tertiary);
+  --mulan-text-muted:     var(--fg-muted);
+  --mulan-text-subtle:    var(--fg-muted);
+  --mulan-text-disabled:  var(--gray-500);
+  --mulan-bg-primary:     var(--bg-surface);
+  --mulan-bg-secondary:   var(--bg-app);
+  --mulan-bg-tertiary:    var(--bg-sunken);
+  --mulan-bg-elevated:    var(--bg-raised);
+  --mulan-bg-hover:       var(--bg-hover);
+  --mulan-bg-dark:        var(--gray-900);
+  --mulan-border-default: var(--border-default);
+  --mulan-border-subtle:  var(--border-subtle);
+  --mulan-accent-purple:  var(--brand-500);
+  --mulan-accent-blue:    var(--brand-600);
+  --mulan-status-success: var(--success);
+  --mulan-status-error:   var(--error);
+  --mulan-status-warning: var(--warning);
+  --node-btn-dark:        var(--node-run-btn);
+}
+
+/* ============================ 基础层 ============================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+               ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  color: var(--fg-primary);
+  background: var(--bg-app);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 1px;
+  border-radius: var(--radius-sm);
+}
+
+::selection { background: var(--brand-100); color: var(--fg-primary); }
+/* 画布底为纯色，不使用点阵背景（2026-09-27 用户要求去掉小圆点） */
+
+/* 连接点热区扩大（保持 v1 行为不变：只在节点外侧延伸 48px，不侵入节点内部） */
+.react-flow__handle-left::before {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: -48px; border-radius: var(--radius-sm);
+}
+.react-flow__handle-right::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: -48px; border-radius: var(--radius-sm);
+}
