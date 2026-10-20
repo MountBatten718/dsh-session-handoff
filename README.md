@@ -46,11 +46,13 @@ and travels light.
 
 Requires DSH desktop or CLI with Node `^22.19.0 || >=24`.
 
+Tested on: `0.1.0-rc.5`–`rc.8`, `0.1.1-rc.2`, `0.2.0-rc.2`, `0.2.1-rc.2`.
+
 The plugin is a standard DSH bundle: put it into the `node_modules` of **the profile you are using**, then
 register it there. Example for the desktop profile:
 
 ```sh
-# 1) put the repository anywhere (or unpack dsh-session-handoff-0.3.0.tgz from the release)
+# 1) put the repository anywhere (or unpack dsh-session-handoff-0.3.1.tgz from the release)
 git clone https://github.com/MountBatten718/dsh-session-handoff.git ~/dsh-session-handoff
 
 # 2) link it into the desktop profile's node_modules
@@ -147,7 +149,8 @@ The build script uses only Node's built-in TypeScript type stripping — no depe
 
 ## Known limitations
 
-- Supports DSH `0.1.0-rc.5` through `rc.8`, `0.1.1-rc.2`, and the desktop kernel `0.2.0-rc.2`.
+- Supports DSH `0.1.0-rc.5` through `rc.8`, `0.1.1-rc.2`, `0.2.0-rc.2`, and `0.2.1-rc.1` / `rc.2`
+  (verified on 0.2.1-rc.2 on 2026-10-20: plugin load, health row, settings panel and stats RPC all work).
   DSH `0.1.2-alpha.1` split the conversation UI/service and needs a separate client-side migration.
 - `session.snapshotEvents()` is marked `@deprecated` by the host (it still uses it internally); a future
   kernel may need a different read entry point.

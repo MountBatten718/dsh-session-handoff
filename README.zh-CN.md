@@ -44,11 +44,13 @@ DSH 的会话越聊越长：加载变慢、上下文吃紧、模型开始忘事�
 
 要求：DSH 桌面版或 CLI，Node `^22.19.0 || >=24`。
 
+已在下列内核上实测可用：`0.1.0-rc.5`–`rc.8`、`0.1.1-rc.2`、`0.2.0-rc.2`、`0.2.1-rc.2`。
+
 插件是标准的 DSH bundle 包，核心只有两件事：放进**你正在用的 profile** 的 `node_modules`，
 并在该 profile 里登记。以桌面版（`desktop` profile）为例：
 
 ```sh
-# 1) 把仓库放到任意目录（或直接解压 Release 里的 dsh-session-handoff-0.3.0.tgz）
+# 1) 把仓库放到任意目录（或直接解压 Release 里的 dsh-session-handoff-0.3.1.tgz）
 git clone https://github.com/MountBatten718/dsh-session-handoff.git ~/dsh-session-handoff
 
 # 2) 软链进 desktop profile 的 node_modules
@@ -146,7 +148,8 @@ node scripts/build-client.mjs --check   # 校验产物与源码逐字节一致
 
 ## 已知限制
 
-- 支持 DSH `0.1.0-rc.5` 至 `rc.8`、`0.1.1-rc.2` 以及桌面版内核 `0.2.0-rc.2`；
+- 支持 DSH `0.1.0-rc.5` 至 `rc.8`、`0.1.1-rc.2`、`0.2.0-rc.2`，以及 `0.2.1-rc.1` / `rc.2`
+  （2026-10-20 在 0.2.1-rc.2 上实测：插件加载、健康度行、设置页、统计接口均正常）；
   `0.1.2-alpha.1` 拆分了会话 UI / 服务，需要单独迁移客户端半区。
 - `session.snapshotEvents()` 已被宿主标注 `@deprecated`（宿主内部仍在使用）；未来内核换入口时需要跟改。
 - 链路状态（第几棒 / 已交接）只存内存：重启后靠旧会话标题上的标记恢复"已交接"，链序号会退化为 1（仅影响展示）。
